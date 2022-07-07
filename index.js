@@ -3,13 +3,12 @@ import { MongoClient } from 'mongodb';
 import cors from 'cors'
 import chalk from 'chalk'
 
-
 const app = express(); // cria servidor
 app.use(cors())
 app.use(json())   ///MIDDLEWARE - JASON PARSER
 
 // Criando a config da conexao
-const db = null
+let db = null
 const mongoClient = new MongoClient('mongodb://localhost:27017') 
 const promise = mongoClient.connect()
 
