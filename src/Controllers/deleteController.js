@@ -22,5 +22,5 @@ export async function deleteController(req, res){
             return res.sendStatus(500)
         }
     }
-    return res.send('erro na func delete: ', 5000)   
+    return res.send('erro na func delete: ', 5000)
 }
