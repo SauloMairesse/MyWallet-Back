@@ -1,8 +1,6 @@
 import { Router } from "express";
-import { debitsController } from "../Controllers/debitsController";
-import { depositeController } from "../Controllers/depositeController";
+import { operationsController } from "../Controllers/operationsController";
 
 const operationsRouters = Router()
 
-operationsRouters.use('/deposit', depositeController)
-operationsRouters.use('/debits', debitsController)
+operationsRouters.use('/operations', operationsController)

@@ -1,7 +1,7 @@
 import db from "../../config/db.js";
 import dayjs from 'dayjs'
 
-export async function debitsController(req, res){
+export async function historicController(req, res){
     const {authorization} = req.header;
     const token = authorization?.replace('Bearer', '')
     const {value, description} = req.body
@@ -18,14 +18,14 @@ export async function debitsController(req, res){
                             value:value,
                             description: description,
                             data: dayjs().format('DD/MM'),
-                            type:'cost'}
+                            type:'deposit'}
         try{
-            await db.collections('costs').insertOne(insertObj)
+            await db.collections('deposits').insertOne(insertObj)
             return res.send(201)
         }catch(err){
-            console.log('error debitsController: ', err)
+            console.log('error depositeController: ', err)
             return res.send(500)
         }
     }
-    return res.send('erro na func debits: ', 5000)   
+    return res.send('erro na func deposito: ', 5000)   
 }
