@@ -1,12 +1,26 @@
 import db from "../../config/db.js";
 import dayjs from 'dayjs'
+import Joi from "joi";
+
+
+const operationsJOI = Joi.object({
+    value: Joi.required(),
+    description: Joi.string().required(),
+    type: Joi.string().required(), //mudar para 'deposito or debito
+})
 
 export async function operationsController(req, res){
     const {authorization} = req.header;
     const token = authorization?.replace('Bearer', '')
+    if(!token) return res.sendStatus(401)
+
     const {value, description, type} = req.body
 
-    if(!token) return res.sendStatus(401)
+    const operationsOBJ = { value:value,
+                            description:description,
+                            type:type}
+    const validationJOI = operationsJOI.validate(operationsOBJ, {abortEarly: false})
+    if(validationJOI.error) return res.sendStatus(422)
 
     const session = await db.collections("sessions").findOne({token:token})
     if(!session){
